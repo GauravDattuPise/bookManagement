@@ -5,11 +5,6 @@ const userModel = require('../models/userModel');
 const reviewModel = require('../models/reviewModel');
 
 
-
-
-
-
-
 const createBook = async function (req, res) {
 
     try {
@@ -42,6 +37,7 @@ const createBook = async function (req, res) {
      if(title) {
         title = bookData.title = title.trim()
         title = bookData.title = title.toLowerCase()
+
         const findBook = await bookModel.findOne({ title: title })
         if (findBook)
             return res.status(400).send({ status: false, message: "This book already exists" })
@@ -66,6 +62,7 @@ const createBook = async function (req, res) {
         { return res.status(400).send({ status: false, message: "Please provide the ISBN in string" })}
 
         ISBN = bookData.ISBN = ISBN.trim()
+
         if (!valid.isbnValid(ISBN))
             return res.status(400).send({ status: false, message: "Please provide valid ISBN, e.g: 978-1861978709 " })
 
@@ -152,6 +149,7 @@ const getBook = async function (req, res) {
 
             return res.status(200).send({ status: true, message: 'Books list', data: filterData })
         }
+
         else return res.status(400).send({ status: false, message: "Please provide valid key-value pair" })
 //===================================================
 
@@ -212,6 +210,7 @@ const updateBook = async function (req, res) {
 
             title = bookBody.title = title.trim()
              title = bookBody.title = title.toLowerCase()
+
             const bookTitle = await bookModel.findOne({ title: title })
             if (bookTitle)
                 return res.status(400).send({ status: false, message: "Book title  already exists" })
@@ -257,7 +256,8 @@ const updateBook = async function (req, res) {
         const updatedBook = await bookModel.findByIdAndUpdate({ _id: bookId },
             {
                 $set: { title: title, excerpt: excerpt, releasedAt: Date.now(), ISBN: ISBN },
-            }, { new: true });
+            },
+             { new: true });
 
         return res.status(200).send({ status: true, message: "Successfully updated", data: updatedBook })
     }

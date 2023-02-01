@@ -80,14 +80,6 @@ if ( typeof rating != "number") {
         const createReview = await reviewModel.create({bookId,reviewedBy,reviewedAt,rating,review})
 
 
-        // const selectData = {
-        //     _id: createReview._id,
-        //     bookId: createReview.bookId,
-        //     reviewedBy: createReview.reviewedBy,
-        //     reviewedAt: createReview.reviewedAt,
-        //     rating: createReview.rating,
-        //     review: createReview.review
-        // }
         await bookModel.findOneAndUpdate({ _id: bookId, isDeleted: false }, { $inc: { reviews: +1 } }, { new: true })
         
         return res.status(201).send({ status: true, message: "Success", data: createReview })

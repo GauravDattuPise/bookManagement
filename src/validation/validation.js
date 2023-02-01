@@ -29,7 +29,7 @@ const dateReg = function isValidDate(date) {
 }
 
 const textReg = function(val){
-  const name = /^[a-zA-Z]{3,30}$/
+  const name = /^[a-zA-Z ]{3,30}$/
   return name.test(val)
 }
 

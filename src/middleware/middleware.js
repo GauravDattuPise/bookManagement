@@ -39,7 +39,6 @@ const authorization = async function (req, res, next) {
         }
         if (checkId.userId != userId) {
             return res.status(403).send({ status: false, message: "Unauthorised access" });
-
         }
 
         next()

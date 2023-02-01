@@ -112,7 +112,7 @@ if ( typeof(email) != "string") {
         if (!password ) {
             return res
                 .status(400)
-                .send({ status: false, message: "password Please" });
+                .send({ status: false, message: "provide password Please" });
         }
         if (typeof(password) != "string") {
             return res
@@ -190,6 +190,7 @@ const userLogin = async function(req,res){
     try {
         let data = req.body
         let {email, password} = data
+
         if(Object.keys(data).length==0){
             return res.status(400).send({status: false, message: "Please provide mandatory details"})
         }
@@ -202,6 +203,7 @@ const userLogin = async function(req,res){
             return res.status(400).send({status: false, message: "Please provide email-id in string"})
         }
         email = data.email = email.trim()
+
         if (!valid.emailValid(email)) {
             return res
               .status(400)
@@ -211,7 +213,8 @@ const userLogin = async function(req,res){
         if(!password ){
             return res.status(400).send({status: false, message: "Please provide password"})
         }
-        if(typeof(password) != "string"){return res.status(400).send({status: false, message: "Please provide password in string"})}
+        if(typeof(password) != "string")
+        {return res.status(400).send({status: false, message: "Please provide password in string"})}
 
         password = data.password = password.trim()
 
